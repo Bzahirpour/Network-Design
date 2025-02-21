@@ -1,0 +1,167 @@
+RemoteEdge01#sh run
+Building configuration...
+
+Current configuration : 3208 bytes
+!
+version 15.0
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname RemoteEdge01
+!
+enable secret 5 $1$mERr$CunnQjkAEasAf02ni13tK/
+!
+!
+!
+!
+username Ben secret 5 $1$mERr$CunnQjkAEasAf02ni13tK/
+!
+ip arp inspection validate src-mac dst-mac ip
+!
+ip dhcp snooping
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+interface FastEthernet0/1
+description Remote PC
+ip dhcp snooping trust
+switchport mode access
+switchport port-security mac-address sticky 
+spanning-tree portfast
+spanning-tree bpduguard enable
+!
+interface FastEthernet0/2
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/3
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/4
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/5
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/6
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/7
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/8
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/9
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/10
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/11
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/12
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/13
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/14
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/15
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/16
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/17
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/18
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/19
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/20
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/21
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/22
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/23
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/24
+description NOT IN USE
+shutdown
+!
+interface GigabitEthernet0/1
+description NOT IN USE
+ip arp inspection trust
+ip dhcp snooping trust
+!
+interface GigabitEthernet0/2
+description Internal Websever
+switchport mode access
+switchport port-security mac-address sticky 
+!
+interface Vlan1
+no ip address
+shutdown
+!
+banner motd ^C**********************************************************************
+* WARNING: Authorized Access Only! *
+* *
+* This system is for authorized personnel only. *
+* Unauthorized access is strictly prohibited and may result in *
+* legal action, including prosecution under applicable laws. *
+* All activity is monitored and recorded. *
+* *
+* By proceeding, you acknowledge and agree to comply with all *
+* security policies. *
+**********************************************************************^C
+!
+!
+!
+line con 0
+login local
+exec-timeout 5 0
+!
+line vty 0 4
+login
+line vty 5 15
+login
+!
+!
+!
+!
+end
