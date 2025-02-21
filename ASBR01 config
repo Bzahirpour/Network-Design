@@ -50,48 +50,48 @@ spanning-tree mode pvst
 !
 !
 interface Loopback1
-description polling ip
-ip address 10.1.254.1 255.255.255.255
+ description polling ip
+ ip address 10.1.254.1 255.255.255.255
 !
 interface Tunnel0
-ip address 5.1.254.2 255.255.255.252
-mtu 1476
-tunnel source GigabitEthernet0/0
-tunnel destination 4.1.254.1
+ ip address 5.1.254.2 255.255.255.252
+ mtu 1476
+ tunnel source GigabitEthernet0/0
+ tunnel destination 4.1.254.1
 !
 !
 interface GigabitEthernet0/0
-description WAN
-ip address 203.0.113.1 255.255.255.252
-ip access-group BLOCK_UNWANTED in
-ip nat outside
-duplex auto
-speed auto
+ description WAN
+ ip address 203.0.113.1 255.255.255.252
+ ip access-group BLOCK_UNWANTED in
+ ip nat outside
+ duplex auto
+ speed auto
 !
 interface GigabitEthernet0/1
-description to AWS1
-ip address 192.168.1.1 255.255.255.252
-ip nat inside
-duplex auto
-speed auto
+ description to AWS1
+ ip address 192.168.1.1 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
 !
 interface GigabitEthernet0/2
-description to AWS2
-ip address 192.168.1.5 255.255.255.252
-ip nat inside
-duplex auto
-speed auto
+ description to AWS2
+ ip address 192.168.1.5 255.255.255.252
+ ip nat inside
+ duplex auto
+ speed auto
 !
 interface Vlan1
-no ip address
-shutdown
+ no ip address
+ shutdown
 !
 router ospf 1
-log-adjacency-changes
-network 192.168.1.1 0.0.0.0 area 0
-network 192.168.1.5 0.0.0.0 area 0
-network 10.1.254.1 0.0.0.0 area 0
-default-information originate
+ log-adjacency-changes
+ network 192.168.1.1 0.0.0.0 area 0
+ network 192.168.1.5 0.0.0.0 area 0
+ network 10.1.254.1 0.0.0.0 area 0
+ default-information originate
 !
 ip nat inside source list 1 interface GigabitEthernet0/0 overload
 ip nat inside source static tcp 10.0.4.2 80 203.0.113.1 80 
@@ -106,32 +106,32 @@ ip flow-export version 9
 access-list 1 permit any
 access-list 99 permit 10.0.0.0 0.0.0.7
 ip access-list extended BLOCK_UNWANTED
-deny tcp any any eq telnet
-deny udp any any eq tftp
-permit ip any any
+ deny tcp any any eq telnet
+ deny udp any any eq tftp
+ permit ip any any
 !
 banner login ^C=============================================================
-= NOTICE: Acceptable Use Policy (AUP) =
-= =
-= 1. This system is for business use only. =
-= 2. Unauthorized access, distribution, or modification =
-= of data is prohibited. =
-= 3. User activities may be monitored and recorded. =
-= 4. Any violations may result in disciplinary action =
-= or termination of access. =
-= 5. By logging in, you agree to abide by this AUP. =
+= NOTICE: Acceptable Use Policy (AUP)                      =
+=                                                         =
+= 1. This system is for business use only.               =
+= 2. Unauthorized access, distribution, or modification  =
+=    of data is prohibited.                              =
+= 3. User activities may be monitored and recorded.     =
+= 4. Any violations may result in disciplinary action   =
+=    or termination of access.                          =
+= 5. By logging in, you agree to abide by this AUP.     =
 =============================================================^C
 banner motd ^Cbanner motd #
 **********************************************************************
-* WARNING: Authorized Access Only! *
-* *
-* This system is for authorized personnel only. *
-* Unauthorized access is strictly prohibited and may result in *
-* legal action, including prosecution under applicable laws. *
-* All activity is monitored and recorded. *
-* *
-* By proceeding, you acknowledge and agree to comply with all *
-* security policies. *
+* WARNING: Authorized Access Only!                                   *
+*                                                                    *
+* This system is for authorized personnel only.                      *
+* Unauthorized access is strictly prohibited and may result in       *
+* legal action, including prosecution under applicable laws.         *
+* All activity is monitored and recorded.                            *
+*                                                                    *
+* By proceeding, you acknowledge and agree to comply with all        *
+* security policies.                                                 *
 **********************************************************************
 #
 ^C
@@ -143,21 +143,21 @@ snmp-server community rw RW
 logging trap debugging
 logging 10.0.0.3
 line con 0
-exec-timeout 5 0
-login local
+ exec-timeout 5 0
+ login local
 !
 line aux 0
 !
 line vty 0 4
-access-class 99 in
-exec-timeout 5 0
-login local
-transport input ssh
+ access-class 99 in
+ exec-timeout 5 0
+ login local
+ transport input ssh
 line vty 5 15
-access-class 99 in
-exec-timeout 5 0
-login local
-transport input ssh
+ access-class 99 in
+ exec-timeout 5 0
+ login local
+ transport input ssh
 !
 !
 ntp authentication-key 1 md5 08026F6028 7
