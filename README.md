@@ -1,2 +1,2 @@
 # Network-Design
-<img src="https://imgur.com/XuAxpYS.png" height="80%" width="80%" alt="Installation Steps"/>
+<img src="https://imgur.com/gAF3Mg8" height="80%" width="80%" alt="Installation Steps"/>
