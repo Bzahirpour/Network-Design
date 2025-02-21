@@ -1,0 +1,762 @@
+Dist01#sh run
+Building configuration...
+
+Current configuration : 8485 bytes
+!
+version 12.2(37)SE1
+service timestamps log datetime msec
+service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Dist01
+!
+!
+enable secret 5 $1$mERr$CunnQjkAEasAf02ni13tK/
+!
+ip dhcp relay information trust-all
+!
+!
+ip dhcp excluded-address 10.0.1.1
+ip dhcp excluded-address 10.0.2.1
+ip dhcp excluded-address 10.0.3.1
+ip dhcp excluded-address 10.0.1.2
+ip dhcp excluded-address 10.0.1.253 10.0.1.254
+ip dhcp excluded-address 10.0.3.253 10.0.3.254
+ip dhcp excluded-address 10.0.2.61 10.0.2.62
+!
+ip dhcp pool 1169
+network 10.0.1.0 255.255.255.0
+default-router 10.0.1.1
+dns-server 8.8.8.8
+ip dhcp pool 2096
+network 10.0.2.0 255.255.255.192
+default-router 10.0.2.1
+dns-server 8.8.8.8
+ip dhcp pool 3257
+network 10.0.3.0 255.255.255.0
+default-router 10.0.3.1
+dns-server 8.8.8.8
+!
+!
+ip routing
+!
+!
+!
+!
+username Ben secret 5 $1$mERr$CunnQjkAEasAf02ni13tK/
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+ip arp inspection vlan 10,20,30,40
+ip arp inspection validate src-mac dst-mac ip
+!
+ip dhcp snooping vlan 10,20,30,40
+no ip dhcp snooping information option
+ip dhcp snooping
+!
+ip domain-name bnz.com
+!
+!
+vtp mode transparent
+!
+spanning-tree mode pvst
+spanning-tree vlan 1,10,20,30,40,99,104 priority 24576
+!
+!
+!
+!
+!
+!
+vlan 10
+!
+vlan 20
+!
+vlan 30
+!
+vlan 40
+!
+vlan 99
+!
+vlan 104
+!
+interface Loopback1
+description polling ip
+ip address 10.1.254.2 255.255.255.255
+!
+interface FastEthernet0/1
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/2
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/3
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/4
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/5
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/6
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/7
+description Edge01
+ip arp inspection trust
+ip dhcp snooping trust
+switchport trunk allowed vlan 1,10,20,30,40,99,104
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+!
+interface FastEthernet0/8
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/9
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/10
+description Edge02
+ip dhcp snooping trust
+switchport trunk allowed vlan 1,10,20,30,40,99,104
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+!
+interface FastEthernet0/11
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/12
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/13
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/14
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/15
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/16
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/17
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/18
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/19
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/20
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/21
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/22
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/23
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/24
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface GigabitEthernet0/1
+no switchport
+ip address 192.168.1.2 255.255.255.252
+duplex auto
+speed auto
+!
+interface GigabitEthernet0/2
+no switchport
+ip address 192.168.1.9 255.255.255.252
+duplex auto
+speed auto
+!
+interface Vlan1
+ip address 10.0.10.1 255.255.255.252
+!
+interface Vlan10
+description MGMT
+mac-address 00d0.58b7.a601
+ip address 10.0.0.5 255.255.255.248
+ip access-group MGMT in
+standby 10 ip 10.0.0.1
+standby 10 priority 101
+standby 10 preempt
+!
+interface Vlan20
+description Main
+mac-address 00d0.58b7.a602
+ip address 10.0.1.253 255.255.255.0
+ip access-group MAIN in
+standby 20 ip 10.0.1.1
+standby 20 priority 101
+standby 20 preempt
+!
+interface Vlan30
+description Guest
+mac-address 00d0.58b7.a603
+ip address 10.0.2.62 255.255.255.192
+ip access-group GUEST in
+standby 30 ip 10.0.2.1
+standby 30 priority 101
+standby 30 preempt
+!
+interface Vlan40
+description IoT
+mac-address 00d0.58b7.a604
+ip address 10.0.3.254 255.255.255.0
+ip access-group IoT in
+standby 40 ip 10.0.3.1
+standby 40 priority 101
+standby 40 preempt
+!
+interface Vlan99
+description DMZ
+mac-address 00d0.58b7.a605
+ip address 10.0.4.62 255.255.255.192
+ip access-group DMZ in
+standby 99 ip 10.0.4.1
+standby 99 priority 1
+standby 99 preempt
+!
+interface Vlan104
+mac-address 00d0.58b7.a606
+no ip address
+!
+router ospf 1
+log-adjacency-changes
+network 192.168.1.2 0.0.0.0 area 0
+network 192.168.1.9 0.0.0.0 area 0
+network 10.0.1.0 0.0.0.255 area 0
+network 0.0.0.0 255.255.255.255 area 0
+network 10.0.0.0 0.0.0.7 area 0
+network 10.0.2.0 0.0.0.63 area 0
+network 10.0.3.0 0.0.0.255 area 0
+network 10.1.254.2 0.0.0.0 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list extended DMZ
+permit udp any any eq 1985
+permit icmp 10.0.4.0 0.0.0.63 10.0.4.0 0.0.0.63
+deny ip 10.0.4.0 0.0.0.63 10.0.0.0 0.255.255.255
+deny ip 10.0.4.0 0.0.0.63 172.16.0.0 0.15.255.255
+deny ip 10.0.4.0 0.0.0.63 192.168.0.0 0.0.255.255
+permit ip any any
+ip access-list extended IoT
+permit udp any any eq 1985
+permit icmp 10.0.3.0 0.0.0.255 10.0.3.0 0.0.0.255
+deny ip 10.0.3.0 0.0.0.255 10.0.0.0 0.255.255.255
+deny ip 10.0.3.0 0.0.0.255 172.16.0.0 0.15.255.255
+deny ip 10.0.3.0 0.0.0.255 192.168.0.0 0.0.255.255
+permit ip any any
+ip access-list extended MAIN
+permit udp any any eq 1985
+permit icmp 10.0.1.0 0.0.0.255 10.0.1.0 0.0.0.255
+permit udp any any eq bootps
+permit udp any any eq bootpc
+permit ip 10.0.1.0 0.0.0.255 10.0.5.0 0.0.0.255
+deny ip 10.0.1.0 0.0.0.255 10.0.0.0 0.255.255.255
+deny ip 10.0.1.0 0.0.0.255 172.16.0.0 0.15.255.255
+deny ip 10.0.1.0 0.0.0.255 192.168.0.0 0.0.255.255
+permit ip any any
+ip access-list extended MGMT
+permit udp any any eq 1985
+permit icmp 10.0.0.0 0.0.0.7 10.0.0.0 0.0.0.7
+permit ip 10.0.0.0 0.0.0.7 host 10.1.254.1
+permit ip 10.0.0.0 0.0.0.7 host 10.1.254.2
+permit ip 10.0.0.0 0.0.0.7 host 10.1.254.3
+permit ip 10.0.0.0 0.0.0.7 host 10.1.254.4
+deny ip 10.0.0.0 0.0.0.7 10.0.0.0 0.255.255.255
+deny ip 10.0.0.0 0.0.0.7 172.16.0.0 0.15.255.255
+deny ip 10.0.0.0 0.0.0.7 192.168.0.0 0.0.255.255
+permit ip any any
+ip access-list extended VTY
+permit tcp host 10.0.0.2 host 10.1.254.2 eq 22
+access-list 99 permit 10.0.0.0 0.0.0.7
+!
+banner login ^C=============================================================
+= NOTICE: Acceptable Use Policy (AUP) =
+= =
+= 1. This system is for business use only. =
+= 2. Unauthorized access, distribution, or modification =
+= of data is prohibited. =
+= 3. User activities may be monitored and recorded. =
+= 4. Any violations may result in disciplinary action =
+= or termination of access. =
+= 5. By logging in, you agree to abide by this AUP. =
+=============================================================^C
+banner motd ^C**********************************************************************
+* WARNING: Authorized Access Only! *
+* *
+* This system is for authorized personnel only. *
+* Unauthorized access is strictly prohibited and may result in *
+* legal action, including prosecution under applicable laws. *
+* All activity is monitored and recorded. *
+* *
+* By proceeding, you acknowledge and agree to comply with all *
+* security policies. *
+**********************************************************************^C
+!
+!
+!
+!
+snmp-server community rw RW
+!
+logging trap debugging
+logging 10.0.0.3
+line con 0
+exec-timeout 5 0
+login local
+!
+line aux 0
+!
+line vty 0 4
+access-class 99 in
+exec-timeout 5 0
+login local
+transport input ssh
+line vty 5 15
+access-class 99 in
+exec-timeout 5 0
+login local
+transport input ssh
+!
+!
+!
+ntp authentication-key 1 md5 08026F6028 7
+ntp authenticate
+ntp trusted-key 1
+ntp server 192.168.1.1
+ntp update-calendar
+!
+end
+
+
+Dist01# sh run
+Building configuration...
+
+Current configuration : 8485 bytes
+!
+version 12.2(37)SE1
+service timestamps log datetime msec
+service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Dist01
+!
+!
+enable secret 5 $1$mERr$CunnQjkAEasAf02ni13tK/
+!
+ip dhcp relay information trust-all
+!
+!
+ip dhcp excluded-address 10.0.1.1
+ip dhcp excluded-address 10.0.2.1
+ip dhcp excluded-address 10.0.3.1
+ip dhcp excluded-address 10.0.1.2
+ip dhcp excluded-address 10.0.1.253 10.0.1.254
+ip dhcp excluded-address 10.0.3.253 10.0.3.254
+ip dhcp excluded-address 10.0.2.61 10.0.2.62
+!
+ip dhcp pool 1169
+network 10.0.1.0 255.255.255.0
+default-router 10.0.1.1
+dns-server 8.8.8.8
+ip dhcp pool 2096
+network 10.0.2.0 255.255.255.192
+default-router 10.0.2.1
+dns-server 8.8.8.8
+ip dhcp pool 3257
+network 10.0.3.0 255.255.255.0
+default-router 10.0.3.1
+dns-server 8.8.8.8
+!
+!
+ip routing
+!
+!
+!
+!
+username Ben secret 5 $1$mERr$CunnQjkAEasAf02ni13tK/
+!
+!
+lldp run
+!
+!
+!
+!
+!
+!
+!
+ip arp inspection vlan 10,20,30,40
+ip arp inspection validate src-mac dst-mac ip
+!
+ip dhcp snooping vlan 10,20,30,40
+no ip dhcp snooping information option
+ip dhcp snooping
+!
+ip domain-name bnz.com
+!
+!
+vtp mode transparent
+!
+spanning-tree mode pvst
+spanning-tree vlan 1,10,20,30,40,99,104 priority 24576
+!
+!
+!
+!
+!
+!
+vlan 10
+!
+vlan 20
+!
+vlan 30
+!
+vlan 40
+!
+vlan 99
+!
+vlan 104
+!
+interface Loopback1
+description polling ip
+ip address 10.1.254.2 255.255.255.255
+!
+interface FastEthernet0/1
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/2
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/3
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/4
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/5
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/6
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/7
+description Edge01
+ip arp inspection trust
+ip dhcp snooping trust
+switchport trunk allowed vlan 1,10,20,30,40,99,104
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+!
+interface FastEthernet0/8
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/9
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/10
+description Edge02
+ip dhcp snooping trust
+switchport trunk allowed vlan 1,10,20,30,40,99,104
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+!
+interface FastEthernet0/11
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/12
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/13
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/14
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/15
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/16
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/17
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/18
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/19
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/20
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/21
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/22
+description NOT IN USE
+shutdown
+!
+interface FastEthernet0/23
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface FastEthernet0/24
+description NOT IN USE
+switchport mode access
+shutdown
+!
+interface GigabitEthernet0/1
+no switchport
+ip address 192.168.1.2 255.255.255.252
+duplex auto
+speed auto
+!
+interface GigabitEthernet0/2
+no switchport
+ip address 192.168.1.9 255.255.255.252
+duplex auto
+speed auto
+!
+interface Vlan1
+ip address 10.0.10.1 255.255.255.252
+!
+interface Vlan10
+description MGMT
+mac-address 00d0.58b7.a601
+ip address 10.0.0.5 255.255.255.248
+ip access-group MGMT in
+standby 10 ip 10.0.0.1
+standby 10 priority 101
+standby 10 preempt
+!
+interface Vlan20
+description Main
+mac-address 00d0.58b7.a602
+ip address 10.0.1.253 255.255.255.0
+ip access-group MAIN in
+standby 20 ip 10.0.1.1
+standby 20 priority 101
+standby 20 preempt
+!
+interface Vlan30
+description Guest
+mac-address 00d0.58b7.a603
+ip address 10.0.2.62 255.255.255.192
+ip access-group GUEST in
+standby 30 ip 10.0.2.1
+standby 30 priority 101
+standby 30 preempt
+!
+interface Vlan40
+description IoT
+mac-address 00d0.58b7.a604
+ip address 10.0.3.254 255.255.255.0
+ip access-group IoT in
+standby 40 ip 10.0.3.1
+standby 40 priority 101
+standby 40 preempt
+!
+interface Vlan99
+description DMZ
+mac-address 00d0.58b7.a605
+ip address 10.0.4.62 255.255.255.192
+ip access-group DMZ in
+standby 99 ip 10.0.4.1
+standby 99 priority 1
+standby 99 preempt
+!
+interface Vlan104
+mac-address 00d0.58b7.a606
+no ip address
+!
+router ospf 1
+log-adjacency-changes
+network 192.168.1.2 0.0.0.0 area 0
+network 192.168.1.9 0.0.0.0 area 0
+network 10.0.1.0 0.0.0.255 area 0
+network 0.0.0.0 255.255.255.255 area 0
+network 10.0.0.0 0.0.0.7 area 0
+network 10.0.2.0 0.0.0.63 area 0
+network 10.0.3.0 0.0.0.255 area 0
+network 10.1.254.2 0.0.0.0 area 0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+ip access-list extended DMZ
+permit udp any any eq 1985
+permit icmp 10.0.4.0 0.0.0.63 10.0.4.0 0.0.0.63
+deny ip 10.0.4.0 0.0.0.63 10.0.0.0 0.255.255.255
+deny ip 10.0.4.0 0.0.0.63 172.16.0.0 0.15.255.255
+deny ip 10.0.4.0 0.0.0.63 192.168.0.0 0.0.255.255
+permit ip any any
+ip access-list extended IoT
+permit udp any any eq 1985
+permit icmp 10.0.3.0 0.0.0.255 10.0.3.0 0.0.0.255
+deny ip 10.0.3.0 0.0.0.255 10.0.0.0 0.255.255.255
+deny ip 10.0.3.0 0.0.0.255 172.16.0.0 0.15.255.255
+deny ip 10.0.3.0 0.0.0.255 192.168.0.0 0.0.255.255
+permit ip any any
+ip access-list extended MAIN
+permit udp any any eq 1985
+permit icmp 10.0.1.0 0.0.0.255 10.0.1.0 0.0.0.255
+permit udp any any eq bootps
+permit udp any any eq bootpc
+permit ip 10.0.1.0 0.0.0.255 10.0.5.0 0.0.0.255
+deny ip 10.0.1.0 0.0.0.255 10.0.0.0 0.255.255.255
+deny ip 10.0.1.0 0.0.0.255 172.16.0.0 0.15.255.255
+deny ip 10.0.1.0 0.0.0.255 192.168.0.0 0.0.255.255
+permit ip any any
+ip access-list extended MGMT
+permit udp any any eq 1985
+permit icmp 10.0.0.0 0.0.0.7 10.0.0.0 0.0.0.7
+permit ip 10.0.0.0 0.0.0.7 host 10.1.254.1
+permit ip 10.0.0.0 0.0.0.7 host 10.1.254.2
+permit ip 10.0.0.0 0.0.0.7 host 10.1.254.3
+permit ip 10.0.0.0 0.0.0.7 host 10.1.254.4
+deny ip 10.0.0.0 0.0.0.7 10.0.0.0 0.255.255.255
+deny ip 10.0.0.0 0.0.0.7 172.16.0.0 0.15.255.255
+deny ip 10.0.0.0 0.0.0.7 192.168.0.0 0.0.255.255
+permit ip any any
+ip access-list extended VTY
+permit tcp host 10.0.0.2 host 10.1.254.2 eq 22
+access-list 99 permit 10.0.0.0 0.0.0.7
+!
+banner login ^C=============================================================
+= NOTICE: Acceptable Use Policy (AUP) =
+= =
+= 1. This system is for business use only. =
+= 2. Unauthorized access, distribution, or modification =
+= of data is prohibited. =
+= 3. User activities may be monitored and recorded. =
+= 4. Any violations may result in disciplinary action =
+= or termination of access. =
+= 5. By logging in, you agree to abide by this AUP. =
+=============================================================^C
+banner motd ^C**********************************************************************
+* WARNING: Authorized Access Only! *
+* *
+* This system is for authorized personnel only. *
+* Unauthorized access is strictly prohibited and may result in *
+* legal action, including prosecution under applicable laws. *
+* All activity is monitored and recorded. *
+* *
+* By proceeding, you acknowledge and agree to comply with all *
+* security policies. *
+**********************************************************************^C
+!
+!
+!
+!
+snmp-server community rw RW
+!
+logging trap debugging
+logging 10.0.0.3
+line con 0
+exec-timeout 5 0
+login local
+!
+line aux 0
+!
+line vty 0 4
+access-class 99 in
+exec-timeout 5 0
+login local
+transport input ssh
+line vty 5 15
+access-class 99 in
+exec-timeout 5 0
+login local
+transport input ssh
+!
+!
+!
+ntp authentication-key 1 md5 08026F6028 7
+ntp authenticate
+ntp trusted-key 1
+ntp server 192.168.1.1
+ntp update-calendar
+!
+End 
