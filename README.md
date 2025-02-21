@@ -2,21 +2,9 @@
 <img src="https://imgur.com/gAF3Mg8.png" height="100%" width="100%"/>
 Network Engineering Capstone
 Functionality Report
-
-
-Introduction
-Provide a functionality report detailing the 10 test-case scenarios used to verify the utility of your network project. Seven of the test-case scenarios must be from the provided predefined list, with the remaining three test cases created by you. The functionality report should be written so that a networking peer could replicate the steps for a successful test of your networking solution.
- 
-Student Name 	 Benjamin Nissan Zahirpour
-WGU Student ID 	 012084119
-WGU Student Email 	 bzahirp@wgu.edu
- 
- 
-
-Test Case #1: Device Discovery and Reachability 
-Your network solution must include multiple network segments with access controls that allow traffic from a device on one network to access the resources of a device on another network. Similarly, there must be devices on one network that cannot access resources on a different network.
-Functionality 
-Describe the functionality of the test case in relation to your network project. Identify the relevant tools (devices, subnets, etc.) used in this test case and their specific interactions.  
+<br>
+<br>
+<h2>Test Case #1: Device Discovery and Reachability</h2>
  
  The network designed for my capstone includes five separate VLANs: one Management network (VLAN 10) designed to keep the management of networks separate from users, one Main network (VLAN 20) used for internal users, a separate Guest network (VLAN 30) for guest to use with access only to the internet, one IoT network (VLAN 40) to keep less secure IoT devices separate from user data, and a DMZ (VLAN 99) that houses a public facing web server isolated from all internal networks. ACLs restrict traffic between networks. First, let’s take a moment to discuss the most restrictive networks and then build more access from there for the other networks. The DMZ, Guest, and IoT networks only allow internet access, with ACLs blocking access to all private IP ranges. Next, we have the Main network, which has access to the remote site network. In the ACL, we included a line allowing access to the remote site network, followed by the same rule to deny access to all other private IP ranges. Finally, we have the Management network, which was given explicit permit rules that allow it to reach all the management IPs of all network devices, including those in the remote site, followed by explicit denial for all private IPs. All ACLs were attached to the SVI for the VLANS on both layer three switches that act as the default gateways for each VLAN.
  
