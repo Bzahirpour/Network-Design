@@ -1,7 +1,7 @@
 <h1>Welcome to my Network Design for my Capstone!</h1>
 <img src="https://imgur.com/gAF3Mg8.png" height="100%" width="100%"/>
 Network Engineering Capstone
-Functionality Report
+Functionality Report 
 <br>
 <br>
 <h2>Test Case #1: Device Discovery and Reachability</h2>
